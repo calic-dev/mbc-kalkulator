@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -8,23 +7,15 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-import { questions } from './questions-data'
-
-
-
-
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
 const questions = {
   bore: [
     { question: 'Jesu li tvoje bore vidljive i kad ne pokazuješ emocije?', options: ['Ne, samo kad se smijem', 'Ponekad', 'Da, stalno su vidljive'] },
-    { question: 'Gdje su najizraženije bore?', options: ['Čele', 'Oko očiju', 'Oko usana i brade'] },
+    { question: 'Gdje su najizraženije bore?', options: ['Čelo', 'Oko očiju', 'Oko usana i brade'] },
     { question: 'Jesi li već isprobao/la tretmane za bore?', options: ['Ne još', 'Da, ali nije pomoglo', 'Da, i djelomično je pomoglo'] },
     { question: 'Koliko ti je važno da bore nestanu ili se smanje?', options: ['Nije mi jako važno', 'Volio/la bih poboljšanje', 'To mi je jako bitno'] },
     { question: 'Koliko dugo se boriš s borama?', options: ['Tek su se pojavile', '1-2 godine', 'Više od 2 godine'] },
   ],
-    podocnjaci: [
+  podočnjaci: [
     { question: 'Koliko dugo imaš problema s podočnjacima?', options: ['Manje od 6 mjeseci', '1–2 godine', 'Više od 2 godine'] },
     { question: 'Kako bi opisao/la podočnjake?', options: ['Blagi i povremeni', 'Tamni i često prisutni', 'Tamni i natečeni stalno'] },
     { question: 'Jesi li već nešto pokušao/la?', options: ['Ne još', 'Kreme i serumi', 'Tretmane kod stručnjaka'] },
@@ -67,15 +58,13 @@ const questions = {
     { question: 'Koliko si spreman/na uložiti u rješenje?', options: ['Samo informativno', 'Umjereno', 'Spreman/na sam se ozbiljno posvetiti'] },
   ],
   lice: [
-    { question: 'Imaš li osjećaj da ti lice "visi"?', options: ['Ne', 'Povremeno', 'Da, jako'] },
+    { question: 'Imaš li osjećaj da ti lice „visi“?', options: ['Ne', 'Povremeno', 'Da, jako'] },
     { question: 'Kako bi opisao/la tonus kože?', options: ['Napeto', 'Malo opušteno', 'Vidljivo opušteno'] },
     { question: 'Koja ti je zona najproblematičnija?', options: ['Čeljust', 'Obrazi', 'Sve ukupno'] },
     { question: 'Jesi li već radio/la tretmane zatezanja?', options: ['Ne još', 'Jednom ili dva puta', 'Redovito'] },
     { question: 'Koliko ti je važno da lice izgleda zategnuto i svježe?', options: ['Nije jako', 'Volio/la bih poboljšanje', 'Vrlo važno'] },
   ]
 }
-
-
 
 const getTreatmentEstimate = (answers) => {
   let score = 0
@@ -172,9 +161,7 @@ export default function TreatmentCalculator() {
           <p className="text-lg mb-4">Na temelju tvojih odgovora, preporučujemo <strong>{result}</strong>.</p>
           <p className="mb-4">Srećom, trenutno imamo <strong>proljetnu akciju</strong> s <strong>50% popusta</strong> na sve pakete! Iskoristi priliku do kraja mjeseca.</p>
           <a href="https://tally.so/r/nGKy1o" target="_blank" rel="noopener noreferrer">
-            <Button
-              className="mt-4 bg-[#81D8D0] text-black hover:bg-[#6ccac1]"
-              onClick={() => window.open('https://tally.so/r/nGKy1o', '_blank')}>Zatraži ponudu</Button>
+            <Button className="mt-4 bg-[#81D8D0] text-black hover:bg-[#6ccac1]">Zatraži ponudu</Button>
           </a>
           <p className="mt-4 text-sm text-gray-600">Ponuda vrijedi još <strong>{daysLeft} dana</strong></p>
           <Button variant="ghost" className="mt-4 underline text-sm" onClick={resetForm}>Kreni ispočetka</Button>
