@@ -1,6 +1,5 @@
-import React from 'react'
-// ostatak tvoje aplikacije
-import { useState, useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react'
 
 const questions = {
   bore: [
@@ -116,82 +115,76 @@ export default function TreatmentCalculator() {
 
   if (!started) {
     return (
-      <Card className="max-w-xl mx-auto mt-10 p-6 bg-white text-black text-center rounded-2xl shadow-md">
-        <CardContent>
-          <h1 className="text-2xl font-bold mb-4">Nisi siguran/a koliko tretmana je dovoljno da riješiš svoj problem?</h1>
-          <p className="text-lg mb-6">Ispuni kviz i saznaj!</p>
-          <Button className="bg-[#81D8D0] text-black hover:bg-[#6ccac1]" onClick={() => setStarted(true)}>Kreni</Button>
-        </CardContent>
-      </Card>
+      <div className="max-w-xl mx-auto mt-10 p-6 bg-white text-black text-center rounded-2xl shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Nisi siguran/a koliko tretmana je dovoljno da riješiš svoj problem?</h1>
+        <p className="text-lg mb-6">Ispuni kviz i saznaj!</p>
+        <button className="bg-[#81D8D0] text-black hover:bg-[#6ccac1] px-4 py-2 rounded" onClick={() => setStarted(true)}>Kreni</button>
+      </div>
     )
   }
 
   if (!category) {
     return (
-      <Card className="max-w-xl mx-auto mt-10 p-6 bg-white border rounded-2xl shadow-md text-black">
-        <CardContent>
-          <h2 className="text-2xl font-bold mb-4 text-center">Koji problem želiš riješiti?</h2>
-          <Select onValueChange={(val) => setCategory(val)}>
-            <SelectTrigger className="w-full bg-white border border-black text-black text-lg">
-              <SelectValue placeholder="Odaberi problem..." />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-black">
-              {Object.keys(questions).map((key) => (
-                <SelectItem key={key} value={key} className="capitalize text-lg">
-                  {key}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </CardContent>
-      </Card>
+      <div className="max-w-xl mx-auto mt-10 p-6 bg-white text-black rounded-2xl shadow-md">
+        <h2 className="text-2xl font-bold mb-4 text-center">Koji problem želiš riješiti?</h2>
+        <select onChange={(e) => setCategory(e.target.value)} className="w-full border border-black p-2 rounded text-black">
+          <option value="">Odaberi problem...</option>
+          {Object.keys(questions).map((key) => (
+            <option key={key} value={key}>{key}</option>
+          ))}
+        </select>
+      </div>
     )
   }
 
   if (result) {
     return (
-      <Card className="max-w-xl mx-auto mt-10 p-6 text-center bg-white text-black border border-[#81D8D0] shadow-xl rounded-2xl">
-        <CardContent>
-          <h2 className="text-2xl font-semibold mb-2">Preporuka tretmana</h2>
-          <p className="text-lg mb-4">Na temelju tvojih odgovora, preporučujemo <strong>{result}</strong>.</p>
-          <p className="mb-4">Srećom, trenutno imamo <strong>proljetnu akciju</strong> s <strong>50% popusta</strong> na sve pakete! Iskoristi priliku do kraja mjeseca.</p>
-          <a href="https://tally.so/r/nGKy1o" target="_blank" rel="noopener noreferrer">
-            <Button
-  className="mt-4 bg-[#81D8D0] text-black hover:bg-[#6ccac1]"
-  onClick={() => window.open('https://tally.so/r/nGKy1o', '_blank')}>Zatraži ponudu</Button>
-
-          </a>
-          <p className="mt-4 text-sm text-gray-600">Ponuda vrijedi još <strong>{daysLeft} dana</strong></p>
-          <Button variant="ghost" className="mt-4 underline text-sm" onClick={resetForm}>Kreni ispočetka</Button>
-        </CardContent>
-      </Card>
+      <div className="max-w-xl mx-auto mt-10 p-6 bg-white text-black text-center border border-[#81D8D0] shadow-xl rounded-2xl">
+        <h2 className="text-2xl font-semibold mb-2">Preporuka tretmana</h2>
+        <p className="text-lg mb-4">Na temelju tvojih odgovora, preporučujemo <strong>{result}</strong>.</p>
+        <p className="mb-4">Srećom, trenutno imamo <strong>proljetnu akciju</strong> s <strong>50% popusta</strong> na sve pakete! Iskoristi priliku do kraja mjeseca.</p>
+        <button
+          className="mt-4 bg-[#81D8D0] text-black hover:bg-[#6ccac1] px-4 py-2 rounded"
+          onClick={() => window.open('https://tally.so/r/nGKy1o', '_blank')}
+        >
+          Zatraži ponudu
+        </button>
+        <p className="mt-4 text-sm text-gray-600">Ponuda vrijedi još <strong>{daysLeft} dana</strong></p>
+        <button className="mt-4 underline text-sm" onClick={resetForm}>Kreni ispočetka</button>
+      </div>
     )
   }
 
   return (
-    <Card className="max-w-xl mx-auto mt-10 p-6 bg-white border rounded-2xl shadow-md text-black">
-      <CardContent>
-        <h2 className="text-2xl font-semibold mb-6">{currentQuestions[step].question}</h2>
-        <Progress value={(step + 1) * 20} className="mb-4 bg-[#e0f7f5]" />
-        <RadioGroup onValueChange={handleAnswer} value={answers[step] || ''}>
-          {currentQuestions[step].options.map((opt, idx) => (
-            <div key={idx} className="flex items-center space-x-2 mb-3">
-              <RadioGroupItem value={opt} id={`option-${idx}`} />
-              <Label htmlFor={`option-${idx}`} className="text-lg">{opt}</Label>
-            </div>
-          ))}
-        </RadioGroup>
-        <div className="flex justify-between mt-6">
-          <Button variant="outline" onClick={handlePrevious} disabled={step === 0}>Prethodno pitanje</Button>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="max-w-xl mx-auto mt-10 p-6 bg-white border rounded-2xl shadow-md text-black">
+      <h2 className="text-2xl font-semibold mb-6">{currentQuestions[step].question}</h2>
+      <div className="h-2 w-full bg-[#e0f7f5] mb-4 rounded">
+        <div className="h-full bg-[#81D8D0]" style={{ width: `${(step + 1) * 20}%` }} />
+      </div>
+      <div className="space-y-3">
+        {currentQuestions[step].options.map((opt, idx) => (
+          <label key={idx} className="flex items-center space-x-2 cursor-pointer">
+            <input
+              type="radio"
+              name={`step-${step}`}
+              value={opt}
+              checked={answers[step] === opt}
+              onChange={() => handleAnswer(opt)}
+              className="form-radio"
+            />
+            <span className="text-lg">{opt}</span>
+          </label>
+        ))}
+      </div>
+      <div className="flex justify-between mt-6">
+        <button
+          className="border border-black px-4 py-2 rounded hover:bg-gray-100"
+          onClick={handlePrevious}
+          disabled={step === 0}
+        >
+          Prethodno pitanje
+        </button>
+      </div>
+    </div>
   )
 }
-
-
-
-
-
-
-
